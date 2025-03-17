@@ -5,9 +5,12 @@ import SessionController from "./app/controllers/SessionController";
 import authMiddleware from "./app/middlewares/auth";
 import ChairController from "./app/controllers/ChairController";
 import RentController from "./app/controllers/RentController";
-
+import { swaggerSpec } from "./swagger/swagger";
+import swaggerUi from "swagger-ui-express";
 
 const routes = Router();
+
+routes.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 routes.post("/sessions", SessionController.store);
 routes.post("/users", UserController.store);

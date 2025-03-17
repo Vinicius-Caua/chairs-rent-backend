@@ -5,10 +5,10 @@ import Chair from "../app/models/Chair";
 import Rent from "../app/models/Rent";
 import databaseConfig from "../config/database";
 
-const models = [User, Chair, Rent];
-
 require('dotenv').config();
 
+// Database
+const models = [User, Chair, Rent];
 class Database {
   constructor() {
     this.connection = null;
