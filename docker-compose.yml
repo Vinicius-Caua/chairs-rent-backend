@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: ${USERNAME_DATABASE}
+      POSTGRES_PASSWORD: ${PASSWORD_DATABASE}
+      POSTGRES_DB: ${DATABASE_NAME}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      - USERNAME_DATABASE=${USERNAME_DATABASE}
+      - PASSWORD_DATABASE=${PASSWORD_DATABASE}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - SECRET_KEY=${SECRET_KEY}
+    ports:
+      - "3333:3333"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
